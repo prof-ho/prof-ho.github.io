@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en" id="root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mei-Lin Ho | 何美霖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fefce8;
+  --bg-hero: linear-gradient(135deg, #fefce8 0%, #fef9c3 40%, #fff7ed 100%);
+  --bg-card: #ffffff;
+  --bg-card-hover: #fffef5;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #b45309;
+  --accent-light: #d97706;
+  --accent-dim: rgba(180, 83, 9, 0.08);
+  --accent-dim2: rgba(180, 83, 9, 0.14);
+  --accent-2: #ea580c;
+  --accent-2-dim: rgba(234, 88, 12, 0.08);
+  --accent-3: #ca8a04;
+  --accent-3-dim: rgba(202, 138, 4, 0.08);
+  --teal: #0d9488;
+  --teal-dim: rgba(13, 148, 136, 0.08);
+  --border: #e7e0c9;
+  --border-accent: rgba(180, 83, 9, 0.25);
+  --gradient-gold: linear-gradient(135deg, #b45309, #d97706);
+  --gradient-amber: linear-gradient(135deg, #fbbf24, #f59e0b);
+  --gradient-warm: linear-gradient(135deg, #d97706, #ca8a04);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow: 0 4px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 40px rgba(180,83,9,0.1), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-gold: 0 8px 30px rgba(180,83,9,0.12);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7; font-size: 16px;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent-dim2); color: var(--accent); }
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent-light); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px) saturate(1.6);
+  border-bottom: 1px solid transparent;
+  transition: all var(--transition);
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.95);
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+}
+
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 600;
+  letter-spacing: 0.1em; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--accent);
+}
+.nav-logo svg { width: 22px; height: 22px; }
+
+.nav-dept-logo {
+  height: 40px; margin: 0 16px; display: flex; align-items: center;
+  border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+  padding: 0 14px;
+}
+.nav-dept-logo img {
+  height: 32px; width: auto; object-fit: contain;
+  opacity: 0.75; transition: opacity var(--transition);
+}
+.nav-dept-logo:hover img { opacity: 0.95; }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--text-secondary); text-decoration: none;
+  padding: 4px 0; position: relative; transition: color var(--transition);
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 2px; background: var(--gradient-gold); border-radius: 2px;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform var(--transition);
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer;
+  background: none; border: none; padding: 6px;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text-secondary); transition: all 0.25s; border-radius: 2px;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--accent); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent); }
+
+.nav-mobile-overlay {
+  display: none; position: fixed; inset: 64px 0 0 0; z-index: 999;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+}
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a {
+  font-size: 18px; font-weight: 500; letter-spacing: 0.05em;
+  color: var(--text-secondary); text-decoration: none;
+}
+.nav-mobile-overlay a:hover { color: var(--accent); }
+
+/* HERO */
+header {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 80px 80px;
+  position: relative; overflow: hidden;
+  background: var(--bg-hero);
+}
+
+header::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(circle 1.2px at center, rgba(180,83,9,0.12) 1.2px, transparent 1.2px);
+  background-size: 48px 48px;
+}
+
+.hero-orb {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+  filter: blur(80px); opacity: 0.4;
+}
+.hero-orb-1 { width: 500px; height: 500px; top: -10%; right: 5%; background: rgba(251, 191, 36, 0.25); }
+.hero-orb-2 { width: 400px; height: 400px; bottom: -5%; left: 10%; background: rgba(245, 158, 11, 0.15); }
+.hero-orb-3 { width: 300px; height: 300px; top: 30%; right: 30%; background: rgba(202, 138, 4, 0.12); }
+
+.hero-molecules { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hero-molecule {
+  position: absolute; opacity: 0.08;
+  animation: floatMol 25s ease-in-out infinite;
+}
+.hero-molecule:nth-child(1) { top: 12%; right: 8%; animation-delay: 0s; }
+.hero-molecule:nth-child(2) { top: 55%; right: 20%; animation-delay: -8s; animation-duration: 30s; }
+.hero-molecule:nth-child(3) { top: 25%; right: 38%; animation-delay: -15s; animation-duration: 22s; }
+.hero-molecule:nth-child(4) { bottom: 15%; left: 5%; animation-delay: -5s; animation-duration: 28s; opacity: 0.05; }
+
+@keyframes floatMol {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-18px) rotate(4deg); }
+  50% { transform: translateY(8px) rotate(-3deg); }
+  75% { transform: translateY(-12px) rotate(2deg); }
+}
+
+.hero-photo {
+  position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+  width: 260px; height: 260px; border-radius: 50%;
+  overflow: hidden; background: #fff;
+  box-shadow: 0 10px 40px rgba(180,83,9,0.15), 0 0 0 1px var(--border);
+  animation: photoFloat 6s ease-in-out infinite;
+  z-index: 0;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes photoFloat {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(-65px); }
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.12em; color: var(--accent);
+  border: 1px solid var(--border-accent);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  padding: 8px 18px; border-radius: 50px;
+  margin-bottom: 28px;
+}
+.hero-badge::before {
+  content: ''; width: 8px; height: 8px;
+  background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 8px rgba(180,83,9,0.3);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.hero-name-zh {
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 700; letter-spacing: 0.08em;
+  line-height: 1.1; margin-bottom: 2px;
+  color: var(--text-primary);
+}
+h1.hero-name-en {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.01em; margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+.hero-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: var(--text-muted);
+  letter-spacing: 0.1em; margin-bottom: 24px;
+}
+
+.hero-info { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.info-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; color: var(--text-secondary);
+}
+.info-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent); opacity: 0.6; }
+
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.03em;
+  padding: 6px 14px; border-radius: 50px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary); background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(6px);
+  transition: all var(--transition);
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  text-decoration: none; transition: all var(--transition);
+  cursor: pointer; border: none;
+}
+.btn-primary {
+  background: var(--gradient-gold); color: #fff;
+  box-shadow: 0 4px 16px rgba(180,83,9,0.2);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); color: #fff; }
+.btn-outline {
+  border: 1.5px solid var(--border); color: var(--text-secondary); background: rgba(255,255,255,0.6);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+/* SECTIONS */
+section { padding: 96px 80px; position: relative; }
+section:nth-child(even) { background: var(--bg-secondary); }
+
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 52px; }
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.12em;
+}
+.section-icon { width: 28px; height: 28px; color: var(--accent-light); opacity: 0.5; }
+h2 { font-size: 34px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+/* RESEARCH */
+.research-intro {
+  font-size: 17px; font-weight: 400; color: var(--text-secondary);
+  max-width: 820px; margin-bottom: 44px; line-height: 1.8;
+}
+.research-intro strong { color: var(--accent); font-weight: 600; }
+
+.research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.research-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; cursor: pointer; position: relative; overflow: hidden;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.research-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--gradient-gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--transition);
+}
+.research-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.research-card:hover::before { transform: scaleX(1); }
+
+.rc-icon-wrap {
+  width: 48px; height: 48px;
+  background: var(--accent-dim); border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; transition: all var(--transition);
+}
+.research-card:hover .rc-icon-wrap { background: var(--accent); box-shadow: 0 4px 14px rgba(180,83,9,0.25); }
+.rc-icon-wrap svg { width: 24px; height: 24px; color: var(--accent); transition: color var(--transition); }
+.research-card:hover .rc-icon-wrap svg { color: #fff; }
+
+.research-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.1em; margin-bottom: 6px;
+}
+.research-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+
+.card-preview {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.research-card.expanded .card-preview { display: none; }
+.card-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.45s ease, opacity 0.35s ease; opacity: 0;
+}
+.research-card.expanded .card-detail { max-height: 320px; opacity: 1; }
+.card-detail p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+.card-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.04em;
+  cursor: pointer; background: none; border: none; padding: 4px 0;
+  transition: opacity var(--transition);
+}
+.card-toggle:hover { opacity: 0.65; }
+.card-toggle svg { width: 14px; height: 14px; transition: transform var(--transition); }
+.research-card.expanded .card-toggle svg { transform: rotate(180deg); }
+
+/* PUBLICATIONS */
+.pub-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+.pub-stat {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; text-align: center; transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.pub-stat:hover { border-color: var(--border-accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+.pub-stat-num {
+  font-size: 38px; font-weight: 700;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1; margin-bottom: 6px;
+}
+.pub-stat-label {
+  font-size: 11px; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.07em; font-weight: 500;
+}
+
+/* Chart */
+.pub-chart-container {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px; margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+}
+.pub-chart-title {
+  font-size: 14px; font-weight: 600; color: var(--text-secondary);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.pub-chart-title svg { width: 18px; height: 18px; color: var(--accent); }
+.pub-chart { display: flex; align-items: flex-end; gap: 10px; height: 130px; padding: 0 12px; }
+.pub-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pub-bar {
+  width: 100%; max-width: 56px;
+  background: linear-gradient(180deg, rgba(180,83,9,0.18), rgba(180,83,9,0.08));
+  border-radius: 8px 8px 3px 3px; position: relative; min-height: 4px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer; border: 1px solid transparent;
+}
+.pub-bar:hover {
+  background: var(--gradient-gold); border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(180,83,9,0.2);
+}
+.pub-bar:hover .pub-bar-count { opacity: 1; color: #fff; }
+.pub-bar-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.pub-bar-count {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+  color: var(--accent); opacity: 0; transition: all var(--transition);
+}
+
+/* Filter */
+.pub-filter-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.pub-filter {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+  padding: 6px 16px; border-radius: 50px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-muted); cursor: pointer; transition: all var(--transition);
+}
+.pub-filter.active, .pub-filter:hover {
+  background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent);
+}
+
+/* List */
+.pub-list { display: flex; flex-direction: column; }
+.pub-item {
+  display: grid; grid-template-columns: 44px 1fr;
+  gap: 16px; padding: 18px 16px; border-radius: var(--radius-sm);
+  transition: all var(--transition); margin-bottom: 2px;
+}
+.pub-item:hover { background: var(--accent-dim); }
+.pub-item.hidden { display: none; }
+.pub-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+  color: var(--accent); padding-top: 3px; letter-spacing: 0.06em;
+}
+.pub-title { font-size: 15.5px; font-weight: 600; margin-bottom: 5px; line-height: 1.45; color: var(--text-primary); }
+.pub-authors { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 4px; line-height: 1.55; }
+.pub-authors strong { color: var(--accent); font-weight: 600; }
+.pub-journal {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--accent-2); font-weight: 500;
+}
+.pub-badges { display: flex; gap: 7px; margin-top: 7px; flex-wrap: wrap; }
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 50px; letter-spacing: 0.02em;
+}
+.badge-year { background: var(--accent-3-dim); color: var(--accent-3); border: 1px solid rgba(202,138,4,0.15); }
+.badge-corr { background: rgba(245,158,11,0.08); color: #d97706; border: 1px solid rgba(245,158,11,0.15); }
+.badge-if { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(13,148,136,0.15); }
+
+/* Show more btn */
+.pub-show-more-wrap { text-align: center; margin-top: 24px; }
+.pub-show-more {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+  padding: 10px 32px; border-radius: 50px;
+  border: 1.5px solid var(--border); background: transparent;
+  color: var(--text-secondary); cursor: pointer; transition: all var(--transition);
+}
+.pub-show-more:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: ''; position: absolute; left: 9px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--border));
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative; margin-bottom: 28px; padding: 24px 28px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.timeline-item:hover { border-color: var(--border-accent); transform: translateX(6px); box-shadow: var(--shadow); }
+.timeline-item::before {
+  content: ''; position: absolute; left: -37px; top: 28px;
+  width: 14px; height: 14px;
+  background: #fff; border: 3px solid var(--accent);
+  border-radius: 50%; box-shadow: 0 0 0 4px var(--accent-dim);
+}
+.timeline-period {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.06em; margin-bottom: 4px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.current-badge {
+  background: var(--gradient-gold); color: #fff;
+  font-size: 10px; padding: 2px 10px; border-radius: 50px; font-weight: 700; letter-spacing: 0.05em;
+}
+.timeline-role { font-size: 21px; font-weight: 700; margin-bottom: 3px; }
+.timeline-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+.timeline-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* EDUCATION */
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.edu-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden;
+  transition: all var(--transition); box-shadow: var(--shadow-sm);
+}
+.edu-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.edu-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--gradient-gold);
+}
+.edu-degree {
+  font-size: 42px; font-weight: 700; line-height: 1; margin-bottom: 14px;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.edu-school { font-weight: 600; font-size: 16px; margin-bottom: 3px; }
+.edu-dept { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.edu-advisor { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+.edu-period { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); }
+
+/* AWARDS */
+.awards-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.award-group-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.08em; margin-top: 24px; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.award-group-title:first-child { margin-top: 0; }
+.award-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  transition: all var(--transition); font-size: 14px; color: var(--text-secondary);
+}
+.award-item:hover { background: var(--accent-dim); }
+.award-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  opacity: 0.3; flex-shrink: 0; margin-top: 8px;
+}
+.award-year {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  color: var(--accent-2); margin-left: auto; white-space: nowrap; flex-shrink: 0;
+}
+
+/* CONTACT */
+#contact {
+  background: linear-gradient(135deg, #451a03 0%, #78350f 40%, #422006 100%);
+  color: #fef3c7;
+}
+#contact h2 { color: #fef3c7; }
+#contact .section-num { color: #fbbf24; }
+#contact .section-icon { color: #fbbf24; }
+#contact .section-line { background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent); }
+
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.contact-left { display: flex; flex-direction: column; gap: 24px; }
+
+.contact-logo-bar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  transition: all var(--transition);
+}
+.contact-logo-bar:hover { background: rgba(255,255,255,0.1); border-color: rgba(251,191,36,0.2); }
+.contact-logo-bar img {
+  height: 56px; width: auto; object-fit: contain;
+  filter: brightness(0.95) saturate(0.9);
+}
+.contact-intro { font-size: 19px; font-weight: 300; color: rgba(254,243,199,0.7); line-height: 1.7; margin-bottom: 28px; }
+.contact-items { display: flex; flex-direction: column; gap: 16px; }
+.contact-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  transition: all var(--transition);
+}
+.contact-row:hover { background: rgba(255,255,255,0.1); border-color: rgba(251,191,36,0.25); }
+.contact-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  color: #fbbf24; letter-spacing: 0.08em; white-space: nowrap; margin-top: 2px;
+}
+.contact-val { font-size: 15px; color: rgba(254,243,199,0.75); }
+.contact-val a { color: rgba(254,243,199,0.75); }
+.contact-val a:hover { color: #fff; }
+
+.ext-links { display: flex; flex-direction: column; gap: 10px; }
+.ext-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; border-radius: var(--radius);
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none; color: rgba(254,243,199,0.75);
+  transition: all var(--transition);
+}
+.ext-link:hover {
+  background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25);
+  color: #fff; transform: translateX(6px);
+}
+.ext-link-inner { display: flex; align-items: center; gap: 14px; }
+.ext-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  color: #fbbf24; letter-spacing: 0.06em;
+  background: rgba(251,191,36,0.12); padding: 4px 10px; border-radius: 6px;
+}
+.ext-arrow { font-size: 18px; color: rgba(254,243,199,0.35); transition: all var(--transition); }
+.ext-link:hover .ext-arrow { color: #fbbf24; transform: translateX(4px); }
+
+/* FOOTER */
+footer {
+  background: #1c1917; padding: 22px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(254,243,199,0.3); }
+
+/* SCROLL REVEAL */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.stagger-children .reveal:nth-child(1) { transition-delay: 0s; }
+.stagger-children .reveal:nth-child(2) { transition-delay: 0.07s; }
+.stagger-children .reveal:nth-child(3) { transition-delay: 0.14s; }
+.stagger-children .reveal:nth-child(4) { transition-delay: 0.21s; }
+.stagger-children .reveal:nth-child(5) { transition-delay: 0.28s; }
+.stagger-children .reveal:nth-child(6) { transition-delay: 0.35s; }
+
+/* Scroll-top */
+.scroll-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 100;
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--gradient-gold); color: #fff;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(16px);
+  transition: all var(--transition);
+  box-shadow: var(--shadow-gold);
+}
+.scroll-top.visible { opacity: 1; transform: none; }
+.scroll-top:hover { transform: translateY(-2px); }
+.scroll-top svg { width: 20px; height: 20px; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .research-grid { grid-template-columns: repeat(2, 1fr); }
+  .pub-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  header { padding: 100px 24px 60px; }
+  section { padding: 64px 24px; }
+  footer { padding: 20px 24px; flex-direction: column; gap: 6px; text-align: center; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-dept-logo { display: none; }
+  .hero-photo { display: none; }
+  .hero-content { max-width: 100%; }
+  .research-grid, .edu-grid, .contact-layout { grid-template-columns: 1fr; }
+  .contact-layout { gap: 32px; }
+  .pub-stats { grid-template-columns: repeat(2, 1fr); }
+  h2 { font-size: 26px; }
+  .hero-name-zh { font-size: clamp(36px, 9vw, 56px); }
+  h1.hero-name-en { font-size: clamp(28px, 7vw, 44px); }
+  .timeline { padding-left: 32px; }
+  .timeline-item::before { left: -29px; width: 12px; height: 12px; }
+  .timeline-role { font-size: 18px; }
+}
+@media (max-width: 480px) {
+  .pub-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pub-stat { padding: 16px; }
+  .pub-stat-num { font-size: 28px; }
+  .hero-cta { flex-direction: column; }
+  .btn { text-align: center; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="7" r="3.5"/><circle cx="5.5" cy="16.5" r="3"/><circle cx="18.5" cy="16.5" r="3"/>
+      <line x1="10" y1="10" x2="7" y2="14"/><line x1="14" y1="10" x2="17" y2="14"/>
+    </svg>
+    ML HO
+  </a>
+  <div class="nav-dept-logo">
+    <img src="https://ch.fju.edu.tw/wp-content/uploads/2024/01/%E8%BC%94%E4%BB%81%E5%A4%A7%E5%AD%B8Logo_2.png" alt="Fu Jen Chemistry">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile-overlay" id="mobileMenu">
+  <a href="#research" class="mobile-link">Research</a>
+  <a href="#publications" class="mobile-link">Publications</a>
+  <a href="#experience" class="mobile-link">Experience</a>
+  <a href="#education" class="mobile-link">Education</a>
+  <a href="#awards" class="mobile-link">Awards</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<header>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-molecules">
+    <svg class="hero-molecule" width="220" height="220" viewBox="0 0 220 220">
+      <polygon points="110,22 187,60 187,136 110,174 33,136 33,60" fill="none" stroke="#b45309" stroke-width="2"/>
+      <polygon points="110,48 163,72 163,124 110,148 57,124 57,72" fill="none" stroke="#d97706" stroke-width="1.5"/>
+    </svg>
+    <svg class="hero-molecule" width="180" height="180" viewBox="0 0 180 180">
+      <circle cx="40" cy="40" r="6" fill="#b45309"/><circle cx="140" cy="40" r="6" fill="#b45309"/>
+      <circle cx="40" cy="140" r="6" fill="#b45309"/><circle cx="140" cy="140" r="6" fill="#b45309"/>
+      <circle cx="90" cy="90" r="8" fill="#d97706"/>
+      <line x1="40" y1="40" x2="140" y2="40" stroke="#b45309" stroke-width="1"/>
+      <line x1="40" y1="40" x2="40" y2="140" stroke="#b45309" stroke-width="1"/>
+      <line x1="140" y1="40" x2="140" y2="140" stroke="#b45309" stroke-width="1"/>
+      <line x1="40" y1="140" x2="140" y2="140" stroke="#b45309" stroke-width="1"/>
+    </svg>
+    <svg class="hero-molecule" width="170" height="170" viewBox="0 0 170 170">
+      <ellipse cx="85" cy="85" rx="65" ry="26" fill="none" stroke="#ca8a04" stroke-width="1.2" transform="rotate(-30 85 85)"/>
+      <ellipse cx="85" cy="85" rx="65" ry="26" fill="none" stroke="#b45309" stroke-width="1.2" transform="rotate(30 85 85)"/>
+      <circle cx="85" cy="85" r="7" fill="#d97706" opacity="0.25"/>
+    </svg>
+    <svg class="hero-molecule" width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="60" cy="40" r="12" fill="none" stroke="#b45309" stroke-width="1.5"/>
+      <circle cx="30" cy="80" r="8" fill="none" stroke="#d97706" stroke-width="1.5"/>
+      <circle cx="90" cy="80" r="8" fill="none" stroke="#d97706" stroke-width="1.5"/>
+      <line x1="52" y1="50" x2="35" y2="73" stroke="#b45309" stroke-width="1.2"/>
+      <line x1="68" y1="50" x2="85" y2="73" stroke="#b45309" stroke-width="1.2"/>
+    </svg>
+  </div>
+
+  <div class="hero-photo">
+    <img src="photo.png" alt="Mei-Lin Ho">
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">PROFESSOR &middot; FU JEN CATHOLIC UNIVERSITY</div>
+    <div class="hero-name-zh">何美霖</div>
+    <h1 class="hero-name-en">Mei-Lin Ho</h1>
+    <p class="hero-subtitle">SPECTROSCOPY &middot; NANOMATERIALS &middot; SENSING &middot; HEALTHCARE</p>
+
+    <div class="hero-info">
+      <div class="info-row">
+        <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>Department of Chemistry, Fu Jen Catholic University</span>
+      </div>
+      <div class="info-row">
+        <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+        <span>157382@mail.fju.edu.tw</span>
+      </div>
+      <div class="info-row">
+        <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>ORCID: 0009-0006-9415-698X</span>
+      </div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="tag">Nanocrystals &amp; MOFs</span>
+      <span class="tag">Sensing Materials</span>
+      <span class="tag">Nonlinear Optics</span>
+      <span class="tag">Photochromism</span>
+      <span class="tag">Healthcare Diagnostics</span>
+      <span class="tag">Electrochemistry</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#publications" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Publications
+      </a>
+      <a href="#contact" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+        Contact
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="8" r="4"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/>
+      <line x1="10" y1="11.5" x2="7.5" y2="15.5"/><line x1="14" y1="11.5" x2="16.5" y2="15.5"/>
+    </svg>
+    <h2>Research Interests</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p class="research-intro reveal">
+    My research is based on <strong>spectroscopic or electrochemical methods</strong> in combination with the nanomaterial synthesis, for sensing and its application in health care area.
+  </p>
+
+  <div class="research-grid stagger-children">
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="4 3"/></svg>
+      </div>
+      <div class="research-num">01</div>
+      <h3>Nanocrystals &amp; MOFs</h3>
+      <p class="card-preview">Synthesis, characterization, and application of nanocrystals and metal-organic frameworks for sensing...</p>
+      <div class="card-detail"><p>Synthesis, characterization, and application of nanocrystals and metal-organic frameworks (MOFs). Exploring novel architectures for gas adsorption, luminescence sensing, and structural transformation properties.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="research-num">02</div>
+      <h3>Sensing Materials</h3>
+      <p class="card-preview">Development of oxygen, glucose, and health-related sensing materials for clinical healthcare...</p>
+      <div class="card-detail"><p>Development of oxygen, glucose, nitrite, homocysteine, and other health-related sensing materials for clinical healthcare applications. Paper-based microfluidic devices and electrochemical platforms for point-of-care diagnostics.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="research-num">03</div>
+      <h3>Nonlinear Optics &amp; Photochromism</h3>
+      <p class="card-preview">Exploration of nonlinear optics and solid-state photochromism in inorganic materials...</p>
+      <div class="card-detail"><p>Exploration of nonlinear optics and solid-state photochromism in inorganic materials. Study of photophysical properties including two-photon absorption, phosphorescence, and luminescence in coordination polymers and metal complexes.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="research-num">04</div>
+      <h3>Healthcare Diagnostics</h3>
+      <p class="card-preview">Developing clinical decision support tools, TB detection, and new sensing materials for monitoring...</p>
+      <div class="card-detail"><p>Developing clinical decision support tools and new sensing materials for healthcare monitoring. Recent focus on tuberculosis diagnostics using electrochemical detection of ESAT-6 protein, infrared spectroscopy coupled with machine learning for TB screening.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="research-num">05</div>
+      <h3>Scientific Education</h3>
+      <p class="card-preview">Developing new learning materials for scientific education and interdisciplinary research...</p>
+      <div class="card-detail"><p>Developing innovative learning materials for scientific education, including hands-on experiments with nanomaterials, green chemistry approaches, and interactive tools such as "Elemental Knock-Out" game for teaching chemistry.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+    <div class="research-card reveal" onclick="toggleCard(this)">
+      <div class="rc-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </div>
+      <div class="research-num">06</div>
+      <h3>Photophysics &amp; Inorganic Materials</h3>
+      <p class="card-preview">Synthesis, characterization, and photophysics of inorganic materials and their applications...</p>
+      <div class="card-detail"><p>Synthesis, characterization, and photophysics of inorganic materials and their applications. Including Iridium complexes, quantum dots, and metal-organic frameworks with luminescence and oxygen-sensing properties.</p></div>
+      <button class="card-toggle"><span>SHOW MORE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+    </svg>
+    <h2>Publications</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="pub-stats reveal">
+    <div class="pub-stat"><div class="pub-stat-num">81</div><div class="pub-stat-label">REFEREED PAPERS</div></div>
+    <div class="pub-stat"><div class="pub-stat-num">10</div><div class="pub-stat-label">PATENTS</div></div>
+    <div class="pub-stat"><div class="pub-stat-num">18</div><div class="pub-stat-label">YEARS ACTIVE</div></div>
+    <div class="pub-stat"><div class="pub-stat-num">45</div><div class="pub-stat-label">CONFERENCE PAPERS</div></div>
+  </div>
+
+  <div class="pub-chart-container reveal">
+    <div class="pub-chart-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="3" height="9" rx="1"/><rect x="9" y="8" width="3" height="13" rx="1"/><rect x="15" y="4" width="3" height="17" rx="1"/></svg>
+      <span>Publications by Year</span>
+    </div>
+    <div class="pub-chart" id="pubChart"></div>
+  </div>
+
+  <div class="pub-filter-row reveal">
+    <button class="pub-filter active" onclick="filterPubs('all')">All</button>
+    <button class="pub-filter" onclick="filterPubs('corr')">Corresponding Author</button>
+  </div>
+
+  <div class="pub-list" id="pubList">
+    <!-- Publications will be populated by JavaScript -->
+  </div>
+  <div class="pub-show-more-wrap reveal">
+    <button class="pub-show-more" id="showMoreBtn" onclick="showMorePubs()">SHOW ALL PUBLICATIONS</button>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    <h2>Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2024.05 — PRESENT <span class="current-badge">CURRENT</span></div>
+      <div class="timeline-role">Assistant Dean of R&amp;D</div>
+      <div class="timeline-org">College of Science and Engineering, Fu Jen Catholic University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2023.08 — PRESENT <span class="current-badge">CURRENT</span></div>
+      <div class="timeline-role">Professor</div>
+      <div class="timeline-org">Department of Chemistry, Fu Jen Catholic University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2021.10 — 2022.08</div>
+      <div class="timeline-role">Visiting Scholar</div>
+      <div class="timeline-org">Department of Chemistry and Biochemistry, University of California San Diego</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2015.10 — 2023.07</div>
+      <div class="timeline-role">Professor</div>
+      <div class="timeline-org">Department of Chemistry, Soochow University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2016.07 — 2019.07</div>
+      <div class="timeline-role">Chairman</div>
+      <div class="timeline-org">Department of Chemistry, Soochow University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2012.03 — 2015.09</div>
+      <div class="timeline-role">Associate Professor</div>
+      <div class="timeline-org">Department of Chemistry, Soochow University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2009.02 — 2012.02</div>
+      <div class="timeline-role">Assistant Professor</div>
+      <div class="timeline-org">Department of Chemistry, Soochow University</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">2008.08 — 2009.01</div>
+      <div class="timeline-role">Post-doctoral Fellow</div>
+      <div class="timeline-org">Physical Chemistry, National Taiwan University (Advisor: Pi-Tai Chou)</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+    <h2>Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid stagger-children">
+    <div class="edu-card reveal">
+      <div class="edu-degree">Ph.D.</div>
+      <div class="edu-school">National Taiwan University</div>
+      <div class="edu-dept">Physical Chemistry</div>
+      <div class="edu-advisor">Advisor: Pi-Tai Chou</div>
+      <div class="edu-period">2004 – 2008</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">M.S.</div>
+      <div class="edu-school">National Tsing Hua University</div>
+      <div class="edu-dept">Chemistry</div>
+      <div class="edu-advisor">Advisor: I-Chia Chen</div>
+      <div class="edu-period">2001 – 2003</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">B.S.</div>
+      <div class="edu-school">National Taiwan University</div>
+      <div class="edu-dept">Chemistry</div>
+      <div class="edu-period">1998 – 2001</div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+    <h2>Awards &amp; Honors</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="awards-grid reveal">
+    <div class="award-group-title">FU JEN CATHOLIC UNIVERSITY</div>
+    <div class="award-item"><span class="award-dot"></span><span>Excellent Teaching Award, Fu Jen Catholic University</span><span class="award-year">2025</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>First Prize (Original Research Competition), Joint Annual Meeting of TSPCCM</span><span class="award-year">2025</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Good Oral &amp; Poster Presentation Awards, 8th ACS Taiwan Chapter Graduate Student Conference</span><span class="award-year">2025</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Excellent Poster Presentations (2), 7th ACS Taiwan Chapter Graduate Student Conference</span><span class="award-year">2024</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Poster Presentation Award, CSLT Annual Meeting</span><span class="award-year">2024</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Undergraduate Research Grants (2), NSTC</span><span class="award-year">2024</span></div>
+
+    <div class="award-group-title">SOOCHOW UNIVERSITY</div>
+    <div class="award-item"><span class="award-dot"></span><span>LCY Chemical Corp. Chemistry Young Talent Award</span><span class="award-year">2021</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>ScinoPharm Analytical Chemistry Thesis Award, CSLT</span><span class="award-year">2021</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Silver Medal, Taiwan Innotech Expo (Patent: A Portable Fluorescence Detector)</span><span class="award-year">2019</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Highlight Project Award, Teaching Practice Research Program, Ministry of Education</span><span class="award-year">2018</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Gold Medal, Taiwan Innotech Expo (Patent: A Detection Device for Nitrite Concentration)</span><span class="award-year">2018</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Excellent Teaching Award, Soochow University</span><span class="award-year">2017</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Invention Patent Award (2 Items), Soochow University Academic Research Awards</span><span class="award-year">2016</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Exceptional Research Talent Award, National Science Council (NSC/NSTC)</span><span class="award-year">2013–2022</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Outstanding Research Award (Publications &amp; Projects), Soochow University</span><span class="award-year">2010–2017</span></div>
+
+    <div class="award-group-title">NATIONAL TAIWAN UNIVERSITY</div>
+    <div class="award-item"><span class="award-dot"></span><span>Dean's Award &amp; Outstanding Poster Award, College of Science, NTU</span><span class="award-year">2008</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>The Phi Tau Phi Scholastic Honor Society Member</span><span class="award-year">2008</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Chang-Hing Scholarship</span><span class="award-year">2006–2007</span></div>
+
+    <div class="award-group-title">NATIONAL TSING HUA UNIVERSITY</div>
+    <div class="award-item"><span class="award-dot"></span><span>3rd Place, Student Research Poster Competition, 8th NSRRC</span><span class="award-year">2002</span></div>
+    <div class="award-item"><span class="award-dot"></span><span>Mr. Li Tsung-chi Scholarship</span><span class="award-year">2002</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+    <h2>Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-left">
+      <div class="contact-logo-bar">
+        <img src="https://ch.fju.edu.tw/wp-content/uploads/2024/01/%E8%BC%94%E4%BB%81%E5%A4%A7%E5%AD%B8Logo_2.png" alt="FJU Logo">
+      </div>
+      <p class="contact-intro">Professor &amp; Assistant Dean of R&amp;D, College of Science and Engineering</p>
+      <div class="contact-items">
+        <div class="contact-row">
+          <span class="contact-tag">OFFICE</span>
+          <span class="contact-val">CH229, Department of Chemistry, Fu Jen Catholic University<br>No. 510 Zhongzheng Rd, Xinzhuang Dist., New Taipei City, 24205 Taiwan</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-tag">TEL</span>
+          <span class="contact-val">011-886-2-29053567</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-tag">EMAIL</span>
+          <span class="contact-val"><a href="mailto:157382@mail.fju.edu.tw">157382@mail.fju.edu.tw</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="ext-links">
+      <a href="https://orcid.org/0009-0006-9415-698X" class="ext-link" target="_blank" rel="noopener">
+        <div class="ext-link-inner"><span class="ext-tag">ORCID</span><span>0009-0006-9415-698X</span></div>
+        <span class="ext-arrow">&rarr;</span>
+      </a>
+      <a href="https://ch.fju.edu.tw/" class="ext-link" target="_blank" rel="noopener">
+        <div class="ext-link-inner"><span class="ext-tag">DEPT</span><span>FJU Department of Chemistry</span></div>
+        <span class="ext-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-text">&copy; 2025 Mei-Lin Ho, Ph.D. All Rights Reserved.</span>
+  <span class="footer-text">Department of Chemistry, Fu Jen Catholic University</span>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// === Publications Data ===
+const pubs = [
+{n:81,t:"(Cu-S)<sub>n</sub> MOF-Polyaniline Based Dual-Platform Biosensing for Blood plasma and Urine Detection of ESAT-6 Toward Early Tuberculosis Diagnosis",a:"Pei-Hsuan Chiang, Zhi-Rou Liang, Yi-Hua Lu, Shi-Han Chen, Ruei-Ting Tang, Yuan-Hsiang Yu,* and <strong>Mei-Lin Ho*</strong>",j:"Microchimica Acta",y:2026,corr:true,if5:"5.3"},
+{n:80,t:"Detection of CH<sub>4</sub> and SF<sub>6</sub> in Small Volumes with Infrared Photoacoustic Spectroscopy: a Comparison with Direct Absorption Spectroscopy",a:"Ton-Rong Tseng,* Che-Hua Yang,* Hsiao-Chi Lu, <strong>Mei-Lin Ho</strong> and Bing-Ming Cheng*",j:"Analyst",y:2025,corr:false,if5:"3.5"},
+{n:79,t:"Innovative Polymer-Based Electrochemical Platform for Detecting ESAT-6 in Human Blood for Pulmonary Tuberculosis Diagnosis",a:"Xiu-An Ye, Shu-Hong Lin, Liang-Yu Chen, Jie-Ren Li, Hsiang-Wei Chiu, Sheng-Wei Pan,* Jia-Yih Feng, Shyh-Chyang Luo,* <strong>Mei-Lin Ho,*</strong>",j:"Sensing and Bio-Sensing Research",y:2025,corr:true,if5:"5.3"},
+{n:78,t:"Fast Screening of Tuberculosis Patients based on Analysis of Plasma by Infrared Spectroscopy Coupled with Machine Learning Approaches",a:"Mei Lin, Hsiao-Chi Lu, Hui-Wen Lin,* Sheng-Wei Pan,* Bing-Ming Cheng,* Ton-Rong Tseng, Jia-Yih Feng, and <strong>Mei-Lin Ho*</strong>",j:"ACS Omega",y:2025,corr:true,if5:"4.4"},
+{n:77,t:"Determination of Homocysteine in Human Plasma with a Silver Nanopaste-based Microfluidic Device",a:"Kuan-Han Chen, Jhong-Jheng Luo, Yun-Ting Hsiung, Hsiang-Wei Chiu, Xiu-An Ye, Wei-Lin Chiu, Hsiang-Tzu Lee, Wei-Ting Tseng, Yin-Yu Chou, <strong>Mei-Lin Ho*</strong>",j:"Microchemical Journal",y:2024,corr:true,if5:"5.3"},
+{n:76,t:"Predicting stringent QuantiFERON-TB Gold Plus conversions in contact of tuberculosis patients",a:"Sheng-Wei Pan, Donald G Catanzaro,* Marva Seifert, Rehan R Syed, Naomi Hillery, <strong>Mei-Lin Ho</strong>, Valeriu Cruduh, Elena Tudorh, Nelly Ciobanuh, Alexandru Codreanuh, Antonino Catanzaro, Timothy C Rodwell",j:"Journal of Microbiology Immunology and Infection",y:2023,corr:false,if5:"5.3"},
+{n:75,t:"An Electrochemical Conducting Polymer-based Biosensor for Leukocyte Esterase and Nitrite Detection for Diagnosing Urinary Tract Infections: A Pilot Study",a:"Wei-Ting Tseng, Yin-Yu Chou, Jhih-Guang Wu, Yin-Chen Wang, Tz-Ning Tseng, Sheng-Wei Pan,* Shyh-Chyang Luo,* <strong>Mei-Lin Ho*</strong>",j:"Microchemical Journal",y:2023,corr:true,if5:"4.5"},
+{n:74,t:"Circulating mitochondrial cell free DNA dynamics in patients with mycobacterial pulmonary infections: Potential for a novel biomarker of disease",a:"Sheng-Wei Pan, Rehan R. Syed, Donald G. Catanzaro, <strong>Mei-Lin Ho</strong>, Chin-Chung Shu, Tsung-Yeh Tsai, Yen-Han Tseng, Jia-Yih Feng,* Yuh-Min Chen, Wei-Juin Su, Antonino Catanzaro, and Timothy C. Rodwell",j:"Frontiers in Immunology",y:2022,corr:false,if5:"8.0"},
+{n:73,t:"Using ATR-FTIR technique to detect pathogens in patients with urinary tract infections: a pilot study",a:"Sheng-Wei Pan, Hsiao-Chi Lu, Jen-Iu Lo, Li-Ing Ho, Ton-Rong Tseng, <strong>Mei-Lin Ho*</strong> and Bing-Ming Cheng*",j:"Sensors",y:2022,corr:true,if5:"4.05"},
+{n:72,t:'Glucose Sensing in Human Whole Blood based on Near-Infrared Phosphors and Outlier Treatment with the programming language "R"',a:"Hsia-An Lee, Peng-Yi Lin, Anastasia I. Solomatina, Igor O. Koshevoy, Sergey P. Tunik,* Hui-Wen Lin,* Sheng-Wei Pan,* and <strong>Mei-Lin Ho*</strong>",j:"ACS Omega",y:2022,corr:true,if5:"4.197"},
+{n:71,t:"Disease progression in patients with nontuberculous mycobacterial lung disease of nodular-bronchiectatic (NB) pattern: the role of cavitary NB and soluble programmed death protein-1",a:"Sheng-Wei Pan, Wei-Juin Su, Yu-Jiun Chan, <strong>Mei-Lin Ho</strong>, Jia-Yih Feng,* Chin-Chung Shu,* Jann-Yuan Wang, Hao-Chien Wang, Chong-Jen Yu, and Yuh-Min Chen",j:"Clinical Infectious Diseases",y:2021,corr:false,if5:"15.446"},
+{n:70,t:"Quantitative Urinary Tract Infection Diagnosis of Leukocyte Esterase with a Microfluidic Paper-Based Device",a:"Wei-Ting Tseng, Hsin-Yi Tseng, Yin-Yu Chou, Yin-Chen Wang, Tz-Ning Tseng, Li-Ing Ho, Sheng-Wei Pan,* and <strong>Mei-Lin Ho*</strong>",j:"Dalton Transactions",y:2021,corr:true,if5:"4.185"},
+{n:69,t:"The Distinct O<sub>2</sub> Quenching Mechanism between Fluorescence and Phosphorescence for Dyes Adsorbed on the Silica Gel",a:"Yu-Hsuan Cheng, Andrey Belyaev, <strong>Mei-Lin Ho*,</strong> Igor O. Koshevoy* and Pi-Tai Chou*",j:"Physical Chemistry Chemical Physics",y:2020,corr:true,if5:"3.861"},
+{n:68,t:"Silver nanoplates for colorimetric determination of Xanthine in human Plasma and in Fish meat via etching/aggregation/fusing steps",a:"Hung-Cheng Hsu, Pei-Wen Liao, Hsiang-Tzu Lee, Wei-Chen Liu and <strong>Mei-Lin Ho*</strong>",j:"Sensors",y:2020,corr:true,if5:"4.05"},
+{n:67,t:"Hands-On Experiments for the Application of a Flexible-Conductive Nanomaterial Utilizing Silver-Nanopaste-Incorporated Tracks",a:"<strong>Mei-Lin Ho,*</strong> Ting-Yu Lai, Jo-Tzu Sung and Yin-Yu Chou",j:"Journal of Chemical Education",y:2020,corr:true,if5:"2.988"},
+{n:66,t:"Quantitative Determination of Leukocyte Esterase in Clinical Samples with a Paper Device for Urinary Tract Infections Diagnosis",a:"<strong>Mei-Lin Ho*</strong>, Wei-Fang Liu, Hsin-Yi Tseng, Yu-Tzu Yeh, Wei-Ting Tseng, Yin-Yu Chou, Xin-Ru Huang, Hung-Cheng Hsu, Li-Ing Ho and Sheng-Wei Pan*",j:"RSC Advances",y:2020,corr:true,if5:"3.748"},
+{n:65,t:"Paper-based microfluidic devices based on 3D network polymer hydrogel for the determination of glucose in human whole blood",a:"Rong-Yu He, Hsin-Yi Tseng, Hsia-An Lee, Yu-Ci Liu, Igor O. Koshevoy, Sheng-Wei Pan* and <strong>Mei-Lin Ho *</strong>",j:"RSC Advances (Hot article)",y:2019,corr:true,if5:"3.748"},
+{n:64,t:"Synthesis, Structural Characterization and Ligand-Enhanced Photo-Induced Color-Changing Behavior of Two Hydrogen-Bonded Ho(III)-Squarate Supramolecular Compounds",a:"Chih-Chieh Wang*, Szu-Yu Ke, Yun Fen, <strong>Mei-Lin Ho*,</strong> Chung-Kai Chang, Yu-Chun Chuang and Gene-Hsiang Lee",j:"Polymers",y:2019,corr:true,if5:"5.063"},
+{n:63,t:"Ratiometric Tuning of Luminescence: Interplay between the Locally Excited and Inter-ligand Charge-transfer States in Pyrazolate-Based Boron Complexes",a:"Deng-Gao Chen, Revathi Ranganathan, Jia-An Lin, Chun-Ying Huang, <strong>Mei-Lin Ho*</strong>, Yun Chi*, and Pi-Tai Chou,*",j:"Journal Of Physical Chemistry C",y:2019,corr:true,if5:"4.48"},
+{n:62,t:"Determination of Nitrite Ion with a Paper-Based Microfluidic Device",a:"Yu-Ci Liu, Chia-Hui Hsu, Bing-Jyun Lu, Peng-Yi Lin and <strong>Mei-Lin Ho*</strong>",j:"Dalton Transactions",y:2018,corr:true,if5:"4.185"},
+{n:61,t:"Sponge-like Water de-/ad-sorption versus Solid-state Structural Transformation and Colour-Changing behavior of An Entangled 3D Composite Supramolecular Architecture",a:"Chih-Chieh Wang *, Szu-Yu Ke, Kuan-Ting chen, Ning-Kuei Sun, Wei-Fung Liu, <strong>Mei-Lin Ho*</strong>, Bing-Jyun Lu, Yi-Ting Hsieh, Yu-Chun Chuang, Gene-Hsiang Lee, Shi-Yi Huang, En-Che Yang*",j:"Polymers",y:2018,corr:true,if5:"5.063"},
+{n:60,t:"Detecting Glucose Levels in Blood Plasma and Artificial Tear by Au(I) Complex on the Carbopol Polymer: A Microfluidic Paper-Based Method",a:"Jong-Jheng Luo, Sheng-Wei Pan,* Jia-Hui Yang, Tian-Lin Chang, Peng-Yi Lin, Chen-Liang Wu, Wei-Fang Liu, Xin-Ru Huang, Igor O. Koshevoy, Pi-Tai Chou and <strong>Mei-Lin Ho*</strong>",j:"Polymers",y:2018,corr:true,if5:"5.063"},
+{n:59,t:"A Silver Metal Complex as a Luminescent Probe for Enzymatic Sensing of Blood Plasma Glucose and Urine",a:"Zheng-Bang Pan, Ying-Chu Wang, Gomathy Chakkaradhari, Jian Fan Zhu, Rong Yu He, Yu-Ci Liu, Chia-Hui Hsu, Igor O. Koshevoy,* Pi-Tai Chou,* Sheng-Wei Pan, and <strong>Mei-Lin Ho*</strong>",j:"Dalton Transactions",y:2018,corr:true,if5:"4.185"},
+{n:58,t:"Methodology for Sample Preparation and Size Measurement of Commercial ZnO Nanoparticles",a:"Pei-Jia Lu, Wei-En Fu, Shou-Chieh Huang, Chin-Yuan Lin, <strong>Mei-Lin Ho</strong>, Yu-Pen Chen, and Hwei-Fang Cheng*",j:"Journal of Food and Drug Analysis",y:2018,corr:false,if5:"6.576"},
+{n:57,t:"Four Mixed-Ligand Zn(II) Three-Dimensional Metal-Organic Frameworks: Synthesis, Structural Diversity, and Photoluminescent Property",a:"Chih-Chieh Wang,* Szu-Yu Ke, Chia-Wen Cheng, Yu-Wen Wang, Hsiao-Shan Chiu, Yu-Chien Ko, Ning-Kuei Sun, <strong>Mei-Lin Ho,*</strong> Chung-Kai Chang, Yu-Chun Chuang, and Gene-Hsiang Lee",j:"Polymers",y:2017,corr:true,if5:"5.063"},
+{n:56,t:"Silver nanoprism-based paper as ratiometric sensor for extending biothiol detection in serum",a:"Yu-Chien Ko, Tien-Li Lin, Chiu-Ting Yeh, Ning-Kuei Sun, Jing-Jong Shyue, Guang-Yang Liu, Shang-Wei Chou, Yu-Ci Liu, Chia-Hui Hsu and <strong>Mei-Lin Ho*</strong>",j:"New Journal of Chemistry",y:2017,corr:true,if5:"3.629"},
+{n:55,t:"Ag@Au nanoprisms-metal organic frameworks-based paper for extending glucose sensing range in human serum and urine",a:"Pin-Hsuan Huang, Chia Ping Hong, Jian Fan Zhu, Tzu-Ting Chen, Chu-Ting Chan, Yu-Chien Ko, Tien-Li Lin, Zheng-Bang Pan, Ning-Kuei Sun, Ying-Chu Wang, Jong-Jheng Luo, Tzu-Chieh Lin, Chia-Cheng Kang,* Jing-Jong Shyue* and <strong>Mei-Lin Ho*</strong>",j:"Dalton Transactions",y:2017,corr:true,if5:"4.185"},
+{n:54,t:"Luminescent triphosphine-cyanide d<sup>10</sup> metal complexes",a:"Gomathy Chakkaradhari, Yi-Ting Chen, Antti J. Karttunen, Minh Thuy Dau, Janne J&auml;nis, Sergey P. Tunik, Pi-Tai Chou,* <strong>Mei-Lin Ho*</strong> and Igor O. Koshevoy*",j:"Inorganic Chemistry",y:2016,corr:true,if5:"5.05"},
+{n:53,t:"Fast and Effective Turn-on Paper-based Phosphorescence Biosensor for Detection of Glucose in Serum",a:"Yi-An Chen, Fu-Ju Tsai, Yu-Ting Zeng, Jing-Chang Wang, Hsiang-Ling Chuang, Shih-Yao Lin, Chia Ping Hong, Pin-Hsuan Huang, Gene-Hsiang Lee,* and <strong>Mei-Lin Ho*</strong>",j:"Journal of the Chinese Chemical Society",y:2016,corr:true,if5:"1.63"},
+{n:52,t:'Using a Table Tennis Game, "Elemental Knock-Out", To Increase Students\u2019 Familiarity with Chemical Elements, Symbols, and Atomic Numbers',a:"Chang-Hung Lee,* Jian Fan Zhu, Cheng-Wei Ni, Chia Ping Hong, Pin-Hsuan Huang, Hsiang-Ling Chuang, Shih-Yao Lin, and <strong>Mei-Lin Ho*</strong>",j:"Journal of Chemical Education",y:2016,corr:true,if5:"2.988"},
+{n:51,t:"Four New Lead(II)-Iridium(III) Heterobimetallic Coordination Frameworks: Synthesis, Structures, Luminescence and Oxygen-sensing Properties",a:"Yi-Ting Chen, Chun-Yen Lin, Gene-Hsiang Lee, and <strong>Mei-Lin Ho*</strong>",j:"CrystEngComm",y:2015,corr:true,if5:"3.434"},
+{n:50,t:"A 3D Porous Supramolecular Architecture via \u03c0\u2013\u03c0 Assembly of Two-Dimensional Metal-Organic Frameworks (MOFs): Structure-versus-Luminescence Reversibility and Gas Adsorption Property",a:"Chih-Chieh Wang,* Gia-Bin Sheu, Szu-Yu Ke, Chi-Yang Shin, Yi-Ting Chen, Chia-Hsing Cho, <strong>Mei-Lin Ho,*</strong> Wen-Tin Chen, Ru-Hsio Liao, Gene-Hsiang Lee, and Hwo-Shuenn Sheu*",j:"CrystEngComm",y:2015,corr:true,if5:"3.434"},
+{n:49,t:"A New Series of Fluorescent Indicator for Super Acids",a:"I-Chih Shih, Yu-Shan Yeh, I-Che Wu, You-Hua Chen, Jiun-Yi Shen, Yi-An Chen, <strong>Mei-Lin Ho*</strong>, Pi-Tai Chou*",j:"Photochemistry and Photobiology",y:2015,corr:true,if5:"3.511"},
+{n:48,t:"Using Luminescence To Show Intramolecular and Intermolecular Hydrogen Bonding in Biomolecules: An Activity for High School or General Chemistry",a:"Cheng-Wei Ni, Gu-Ying Lin, Ting-Yi Wang, and <strong>Mei-Lin Ho*</strong>",j:"Journal of Chemical Education",y:2015,corr:true,if5:"2.988"},
+{n:47,t:"Self-Assembly of Four Coordination Polymers in Three-Dimensional Entangled Architecture Showing Reversible Dynamic Solid-State Structural Transformation and Color-Changing Behavior upon Thermal Dehydration and Rehydration",a:"Szu-Yu Ke, Ya-Fan Chang, Hsin-Yu Wang, Ching-Chun Yang, Cheng-Wei Ni, Gu-Ying Lin, Tzu-Ting Chen, <strong>Mei-Lin Ho,*</strong> Gene-Hsiang Lee, Yu-Chun Chuang* and Chih-Chieh Wang*",j:"Crystal Growth & Design",y:2014,corr:true,if5:"4.101"},
+{n:46,t:"Electrochemical synthesis, characterization of Ir-Zn containing coordination polymer, and application in oxygen and glucose sensing",a:"Kum-Yi Cheng, Jing-Chang Wang, Chun-Yen Lin, Wei-Ren Lin, Yi-An Chen, Fu-Ju Tsai, Yu-Chun Chuang, Gu-Ying Lin, Cheng-Wei Ni, Yu-Ting Zheng, and <strong>Mei-Lin Ho*</strong>",j:"Dalton Transactions",y:2014,corr:true,if5:"4.185"},
+{n:45,t:"The Construction of Glucose Biosensor Based on crystalline Iridium(III)-containing coordination polymers with fiber-optic detection",a:"<strong>Mei-Lin Ho,*</strong> Jing-Chang Wang, Ting-Yi Wang, Chun-Yen Lin, Jian Fan Zhu, Yi-An Chen, Tsai-Chen Chen",j:"Sensors and Actuators B: Chemical",y:2014,corr:true,if5:"7.676"},
+{n:44,t:"Enhanced Photochromism of chromen-based colorants near Silver Nanorods in Sol-Gel matrix",a:"<strong>Mei-Lin Ho,*</strong> Bo-Jen Chi, Tzu-Yi Hung, Hua-Yang Liao, Jing-Chang Wang, Ting-Yi Wang, and Jing-Jong Shyue",j:"CrystEngComm",y:2013,corr:true,if5:"3.434"},
+{n:43,t:"Solid State Photochromism of Pyrano[3,2-c]chromen-5-one Moiety with the Assistance of Localized Surface Plasmon",a:"<strong>Mei-Lin Ho,*</strong> Yi-Ping Yu, Min-Hsiu Lin and Yi-Ting Chen",j:"CrystEngComm",y:2012,corr:true,if5:"3.434"},
+{n:42,t:"Assembly of Three 2D Metal-Organic Frameworks (MOFs) Derived from Flexible Ligands, 1,4-bis(3-pyridyl)-2,3-diaza-1,3-butadiene (3-bpd) and/or 1,2-bis(4-pyridyl)ethane (dpe)",a:"Chuan-Yien Liu, Hsin-Ta Wang,* Wen-Chun Chung, Yi-Ting Cheng, Yi-Ting Chen, <strong>Mei-Lin Ho</strong>, Chih-Chieh Wang,* Gene-Hsiang Lee and Hwo-Shuenn Sheu",j:"Journal of the Chinese Chemical Society",y:2012,corr:false,if5:"1.63"},
+{n:41,t:"Synthesis, structure and oxygen-sensing property of Iridium(III)-containing coordination polymers with different cations",a:"<strong>Mei-Lin Ho,*</strong> Yi-An Chen, Tsai-Chen Chen, Pei-Jen Chang, Yi-Ping Yu, Kum-Yi Cheng, Chien-Hung Shih, Gene-Hsiang Lee, and Hwo-Shuenn Sheu",j:"Dalton Transactions",y:2012,corr:true,if5:"4.185"},
+{n:40,t:"Iridium(III) complexes in discs for two-photon excitation applications",a:"<strong>Mei-Lin Ho,*</strong> Min-Hsiu Lin, Yi-Ting Chen and Hwo-Shuenn Sheu",j:"Chemical Physics Letters",y:2011,corr:true,if5:"2.255"},
+{n:39,t:"Synthesis, Structures and Photoluminescence Properties of Silver(I) Complexes with N,N'-di(pyrazin-2-yl)pyridine-2,6-diamine",a:"<strong>Mei-Lin Ho,*</strong> Chien-Hung Shih, Chia-Hwa Lee and Gene-Hsiang Lee*",j:"CrystEngComm",y:2011,corr:true,if5:"3.434"},
+{n:38,t:"Reversible Solid-State Structural Transformation of a 1D-2D Coordination Polymer by Thermal De-/re-hydration Processes",a:"Chih-Chieh Wang,* Ching-Chun Yang, Chang-Tsung Yeh, Geng-Ming Lin, Kum-Yi Cheng, Pei-Jen Chang, <strong>Mei-Lin Ho,*</strong> Gene-Hsiang Lee, Wei-Ju Shih and Hwo-Shuenn Sheu*",j:"Inorganic Chemistry",y:2011,corr:true,if5:"5.05"},
+{n:37,t:"A New Coordination Polymer Exhibiting Unique 2D (H<sub>2</sub>O)<sub>16</sub> Hydrogen Bonded Formation and Drastic Water Dependent Luminescence Properties",a:"Chih-Chieh Wang, Ching-Chun Yang, Wen-Chun Chung, Gene-Hsiang Lee, <strong>Mei-Lin Ho</strong>, Ya-Chien Yu, Min-Wen Chung, Hwo-Shuenn Sheu, Chien-Hung Shih, Kum-Yi Cheng, Pei-Jen Chang and Pi-Tai Chou*",j:"Chemistry - A European Journal",y:2011,corr:false,if5:"4.822"},
+{n:36,t:"A New Recognition Concept Using Dye Sensitized Solar Cell Configuration",a:"Dong-Yi Chen, Kum-Yi Cheng, <strong>Mei-Lin Ho,*</strong> I-Che Wu, Min-Wen Chung, Hungshin Fu and Pi-Tai Chou*",j:"Chemical communications",y:2011,corr:true,if5:"5.976"},
+{n:35,t:"Recombination dynamics of the enhanced quantum efficiency in CdSe/ZnTe/ZnS type-II quantum dots",a:"Chun-Hsiung Wang, Chih-Ming Wei, Sheng-Chih Huang, Yang-Fang Chen,* Chih-Wei Lai, <strong>Mei-Lin Ho</strong> and Pi-Tai Chou",j:"Journal of the Chinese Chemical Society",y:2010,corr:false,if5:"1.63"},
+{n:34,t:"Highly Emissive Cyclometalated Rhenium Metallacycles: Structure\u2212Luminescence Relationship",a:"Yi-Hsiu Tseng, Dibyendu Bhattacharya, Shih-Ming Lin, P. Thanasekaran, Jing-Yun Wu, Li-Wei Lee, M. Sathiyendiran, <strong>Mei-Lin Ho,</strong> Min-Wen Chung, Kung-Chung Hsu, Pi-Tai Chou* and Kuang-Lieh Lu*",j:"Inorganic Chemistry",y:2010,corr:false,if5:"5.05"},
+{n:33,t:"Band gap aligned conducting interface modifier enhances the performance of thermal stable polymer-TiO<sub>2</sub> nanorod solar cell",a:"Yu-Ching Huang, Wei-Che Yen, Yu-Chia Liao, Ya-Chien Yu, Cheng-Chih Hsu, <strong>Mei-Lin Ho</strong>, Pi-Tai Chou and Wei-Fang Su",j:"Applied Physics Letters",y:2010,corr:false,if5:"3.816"},
+{n:32,t:"Surface Plasmon Enhanced Energy Transfer Between Type I CdSe/ZnS and Type II CdSe/ZnTe Quantum Dots",a:"C. H. Wang, C. W. Chen, Y. T. Chen,* C. M. Wei, Y. F. Chen, C. W. Lai, <strong>M. L. Ho</strong>, P. T. Chou and M. Hofmann",j:"Applied Physics Letters",y:2010,corr:false,if5:"3.816"},
+{n:31,t:"Photoisomerization of a Maleonitrile-Type Salen Schiff Base and Its Application in Fine-Tuning Infinite Coordination Polymer",a:"Chun-Wei Lin, Pi-Tai Chou,* Yong-Hong Liao, Ying-Chih Lin,* Ching-Ting Chen, Yu-Chun Chen, Chin-Hung Lai, Bo-So Chen, Yi-Hung Liu, Chih-Chieh Wang and <strong>Mei-Lin Ho*</strong>",j:"Chemistry - A European Journal",y:2010,corr:true,if5:"4.822"},
+{n:30,t:"Thiol-Functionalized Gold Nanodots; Two photon Absorption Property and Imaging In Vitro",a:"Chien-Liang Liu, <strong>Mei-Lin Ho,*</strong> Yu-Chun Chen, Cheng-Chih Hsieh, Yi-Chih Lin, Yu-Hsiu Wang, Meng-Ju Yang, Hsin-Sheng Duan, Bo-So Chen, Jyh-Fu Lee, Jong-Kai Hsiao and Pi-Tai Chou*",j:"Journal of physical chemistry C",y:2009,corr:true,if5:"4.48"},
+{n:29,t:"Mercury(II) Recognition and Fluorescence Imaging in vitro through a 3D-Complexation Structure",a:"<strong>Mei-Lin Ho,*</strong> Kew-Yu Chen, Gene-Hsiang Lee, Yu-Chun Chen, Chih-Chieh Wang, Jyh-Fu Lee, Wen-Chun Chung and Pi-Tai Chou*",j:"Inorganic Chemistry",y:2009,corr:true,if5:"5.05"},
+{n:28,t:"Resonant Energy Transfer between CdSe/ZnS Type I and CdSe/ZnTe Type II Quantum Dots",a:"Chun-Hsiung Wang, Chih-Wei Chen, Chih-Ming Wei, Yang-Fang Chen,*, Chih-Wei Lai, <strong>Mei-Lin Ho</strong>, and Pi-Tai Chou",j:"Journal of physical chemistry C",y:2009,corr:false,if5:"4.48"},
+{n:27,t:"Nd-doped silicon nanowires with room temperature ferromagnetism and infrared photoemission",a:"Wei-Fan Lee, Chung-Yang Lee, <strong>Mei-Lin Ho</strong>, Chi-Te Huang, Chen-Ho Lai, Ho-Yen Hsieh, Pi-Tai Chou and Lih-Juann Chen",j:"Applied Physics Letters",y:2009,corr:false,if5:"3.816"},
+{n:26,t:"Homogeneous, surfactant-free gold nanoparticles encapsulated by polythiophene analogues",a:"Cheng-Hsuan Lai, I-Che Wu, Chia-Cheng Kang, Jyh-Fu Lee, <strong>Mei-Lin Ho</strong> and Pi-Tai Chou*",j:"Chemical communications",y:2009,corr:false,if5:"5.976"},
+{n:25,t:"15-Crown-5 Functionalized Au Nanoparticles Synthesized via Single Molecule Exchange on Silica Nanoparticles: Its Application to Probe 15-Crown-5/K<sup>+</sup>/15-Crown-5 \u201cSandwiches\u201d as Linking Mechanisms",a:"<strong>Mei-Lin Ho</strong>, Jia-Ming Hsieh, Chih-Wei Lai, Hsin-Chieh Peng, Chia-Cheng Kang, I-Che Wu, Chin-Hung Lai, Yu-Chun Chen and Pi-Tai Chou*",j:"Journal of physical chemistry C",y:2009,corr:false,if5:"4.48"},
+{n:24,t:"A New Series of Quadrupolar Type Two-Photon Absorption Chromophores Bearing 11,12-Dibutoxydibenzo[a,c]-phenazine Bridged Amines; Their Applications in Two-Photon Fluorescence Imaging and Two-Photon Photodynamic Therapy",a:"Marappan Velusamy, Jiun-Yi Shen, Jiann T. Lin*, Cheng-Chih Hsieh, Chin-Hung Lai, Chih-Wei Lai, <strong>Mei-Lin Ho</strong>, Yu-Chun Chen, Pi-Tai Chou* and Jong-Kai Hsiao",j:"Advanced Functional Materials",y:2009,corr:false,if5:"19.978"},
+{n:23,t:"Enhancement of energy transfer efficiency between type I CdSe/ZnS and type II CdSe/ZnTe quantum dots assisted by surface plasmon",a:"C. H. Wang, C. W. Chen, Y. T. Chen, <strong>M. L. Ho</strong>, and P. T. Chou and Lih-Juann Chen",j:"Applied Physics Letters",y:2010,corr:false,if5:"3.816"},
+{n:22,t:"Nd-doped silicon nanowires with room temperature ferromagnetism and infrared photoemission",a:"Wei-Fan Lee, Chung-Yang Lee, <strong>Mei-Lin Ho</strong>, Chi-Te Huang, Chen-Ho Lai, Ho-Yen Hsieh, Pi-Tai Chou and Lih-Juann Chen",j:"Applied Physics Letters",y:2009,corr:false,if5:"3.816"},
+{n:21,t:"Homogeneous, surfactant-free gold nanoparticles encapsulated by polythiophene analogues",a:"Cheng-Hsuan Lai, I-Che Wu, Chia-Cheng Kang, Jyh-Fu Lee, <strong>Mei-Lin Ho</strong> and Pi-Tai Chou*",j:"Chemical Communications",y:2009,corr:false,if5:"5.976"},
+{n:20,t:"15-Crown-5 Functionalized Au Nanoparticles Synthesized via Single Molecule Exchange on Silica Nanoparticles: Its Application to Probe 15-Crown-5/K<sup>+</sup>/15-Crown-5 Sandwiches as Linking Mechanisms",a:"<strong>Mei-Lin Ho</strong>, Jia-Ming Hsieh, Chih-Wei Lai, Hsin-Chieh Peng, Chia-Cheng Kang, I-Che Wu, Chin-Hung Lai, Yu-Chun Chen and Pi-Tai Chou*",j:"Journal of Physical Chemistry C",y:2009,corr:false,if5:"4.48"},
+{n:19,t:"A New Series of Quadrupolar Type Two-Photon Absorption Chromophores Bearing 11,12-Dibutoxydibenzo[a,c]-phenazine Bridged Amines; Their Applications in Two-Photon Fluorescence Imaging and Two-Photon Photodynamic Therapy",a:"Marappan Velusamy, Jiun-Yi Shen, Jiann T. Lin*, Cheng-Chih Hsieh, Chin-Hung Lai, Chih-Wei Lai, <strong>Mei-Lin Ho</strong>, Yu-Chun Chen, Pi-Tai Chou* and Jong-Kai Hsiao",j:"Advanced Functional Materials",y:2009,corr:false,if5:"19.978"},
+{n:18,t:"The Remarkable Influence of M2\u03b4 to Thienyl \u03c0 Conjugation in Oligothiophenes Incorporating MM Quadruply Bonds",a:"Gotard Burdzinski, Malcolm Chisholm, Pi-Tai Chou, Yi-Hsuan Chou, Florian Feil, Judith Gallucci, Yagnaseni Ghosh, Terry Gustafson, <strong>Mei-Lin Ho</strong>, Yao Liu, Ramkrishna Ramnauth, Claudia Turro",j:"PNAS",y:2008,corr:false,if5:""},
+{n:17,t:"Preparations, Electrochemical and Photophysical Properties of Fused and Non-Fused Thienyl Bridged MM (M = Mo or W) Quadruply Bonded Complexes",a:"Malcolm H. Chisholm,* Pi-Tai Chou,* Yi-Hsuan Chou, Yagnaseni Ghosh, Terry Gustafson and <strong>Mei-Lin Ho</strong>",j:"Inorganic Chemistry",y:2008,corr:false,if5:"5.05"},
+{n:16,t:"Recombination dynamics in CdTe/CdSe type-II quantum dots",a:"Chun-Hsiung Wang, Tzung-Te Chen and Yang-Fang Chen,* <strong>Mei-Lin Ho</strong>, Chih-Wei Lai and Pi-Tai Chou*",j:"Nanotechnology",y:2008,corr:false,if5:""},
+{n:15,t:"Excited-State Double Proton Transfer: The Concerted (Homodimer) versus Stepwise (Heterodimer) Reaction on the 7-Azaindole Analogues",a:"Wan-Ting Hsieh, Cheng-Chih Hsieh, Chin-Hung Lai, Yi-Ming Cheng, <strong>Mei-Lin Ho</strong>, Kung K. Wang, and Pi-Tai Chou*",j:"ChemPhysChem",y:2008,corr:false,if5:""},
+{n:14,t:"New Supramolecular Isomers with 2D 4<sup>4</sup> Square-Grid and 3D 6<sup>5</sup>&middot;8 CdSO<sub>4</sub> Frameworks in One-Pot Synthesis; Reversible Solvent Uptake and Intriguing Luminescence Properties",a:"Chih-Chieh Wang,* Wei-Zeng Lin, Wei-Ting Huang, Mei-Ju Ko, Gene-Hsiang Lee, <strong>Mei-Lin Ho</strong>, Chun-Wei Lin, Chun-Wei Shih and Pi-Tai Chou*",j:"Chemical Communications",y:2008,corr:false,if5:"5.976"},
+{n:13,t:"Diaza-18-crown-6 Appended Dual 7-Hydroxyquinolines; Selective Mercury Ion Recognition in Aqueous Solution",a:"<strong>Mei-Lin Ho</strong>, Kew-Yu Chen, Lai-Chin Wu, Jiun-Yi Shen, Gene-Hsiang Lee, Mei-Ju Ko, Chih-Chieh Wang, Jyh-Fu Lee, and Pi-Tai Chou*",j:"Chemical Communications",y:2008,corr:false,if5:"5.976"},
+{n:12,t:"Substituent Effects on Dynamics at Conical Intersections:\u03b1,\u03b2 -Enones",a:"A. M. D. Lee, J. D. Coe, S. Ullrich, <strong>M.-L. Ho</strong>, S.-J. Lee, B.-M. Cheng, M. Z. Zgierski, I.-C. Chen, T. J. Martinez and A. Stolow*",j:"J. Phys. Chem. A",y:2007,corr:false,if5:""},
+{n:11,t:"Probing Pb<sup>2+</sup> Cation via the Iridium Phosphorescence Dye",a:"<strong>Mei-Lin Ho</strong>, Yi-Ming Cheng, Lai-Chin Wu, Pi-Tai Chou,* Fang-Chi Hsu, Yun Chi,* and Gene-Hsiang Lee",j:"Polyhedron",y:2007,corr:false,if5:""},
+{n:10,t:"Color Tuning Associated with the Heteroleptic Cyclometalated Ir(III) Complexes: Influence of the Ancillary Ligand",a:"Chau-Jiun Chang, Cheng-Han Yang, Kellen Chen, Yun Chi,* Ching-Fong Shu,* <strong>Mei-Lin Ho</strong>, Yu-Shan Yeh, Pi-Tai Chou,* Gene-Hsiang Lee*",j:"Dalton Transactions",y:2007,corr:false,if5:""},
+{n:9,t:"Osmium Complexes with Tridentate 6-Pyrazol-3-yl 2,2'-Bipyridine Ligands: Coarse Tuning of Phosphorescence from the Red to the Near-Infrared Region",a:"Chen Kellen; Cheng Yi-Ming; Chi Yun,* <strong>Ho Mei-Lin</strong>; Lai Chin-Hung; Chou Pi-Tai,* Peng Shie-Ming, Lee Gene-Hsiang",j:"Chemistry - An Asian Journal",y:2007,corr:false,if5:""},
+{n:8,t:"ortho-GFP Synthetic Chromophore; Excited State Intramolecular Proton Transfer via a Seven-membered Ring Hydrogen Bonding System",a:"Kew-Yu Chen, Yi-Ming Cheng, Cheng-Chih Hsu, <strong>Mei-Lin Ho</strong>, Gene-Hsiang Lee, Pi-Tai Chou*",j:"J. Am. Chem. Soc.",y:2007,corr:false,if5:""},
+{n:7,t:"En Route to the Formation of High Efficiency, Osmium (II) Based Phosphorescent Materials",a:"Fang-Chi Hsu, Yung-Liang Tung, Yun Chi* Cheng-Chih Hsu, Yi-Ming Cheng, <strong>Mei-Lin Ho</strong>, Pi-Tai Chou,* Shie-Ming Peng",j:"Inorganic Chemistry",y:2006,corr:false,if5:""},
+{n:6,t:"Iridium-Complex Modified CdSe/ZnS Quantum Dots; A Conceptual Design for Bifunctionality Toward Imaging and Photosensitization",a:"Jia-Ming Hsieh, <strong>Mei-Lin Ho</strong>, Pei-Wen Wu, Pi-Tai Chou,* Tsai-Tsai Tsung, Yun Chi",j:"Chemical Communications",y:2006,corr:false,if5:"5.976"},
+{n:5,t:"Design and Synthesis of Ir(III)-Azacrown Complex: Application as a Highly Sensitive Metal Cation Phosphorescence Sensor",a:"<strong>Mei-Lin Ho</strong>, Fu-Ming Hwang, Pei-Nung Chen, Ya-Hui Hu, Yi-Ming Cheng, Kung-Shih Chen, Gene-Hsiang Lee, Yun Chi,* and Pi-Tai Chou*",j:"Organic &amp; Biomolecular Chemistry",y:2006,corr:false,if5:""},
+{n:4,t:"Dual Room-Temperature Fluorescent and Phosphorescent Emission in 8-Quinolinolate Osmium (II) Carbonyl Complexes; Rationalization and Generalization of Intersystem Crossing Dynamics",a:"Yi-Ming Cheng, Yu-Shan Yeh, <strong>Mei-Lin Ho</strong>, Pi-Tai Chou,* Po-Shen Chen and Yun Chi*",j:"Inorganic Chemistry",y:2005,corr:false,if5:""},
+{n:3,t:"Photochemical reactions of simple enones: formation of product formyl radical and isomerization",a:"S. J. Lee, <strong>M.-L. Ho</strong> and I.-C. Chen*",j:"\u5316\u5b78 (Chemistry)",y:2004,corr:false,if5:""},
+{n:2,t:"Internal state distributions of fragment HCO via S<sub>0</sub> and T<sub>1</sub> pathways of glyoxal after photolysis in the ultraviolet region",a:"C. C. Kao, <strong>M.-L. Ho</strong>, M.-W. Chen, S.-J. Lee and I.-C. Chen*",j:"J. Chem. Phys.",y:2004,corr:false,if5:""},
+{n:1,t:"Non-adiabatic intramolecular and photodissociation dynamics studied by femtosecond time-resolved photoelectron and coincidence imaging spectroscopy",a:"O. Ge\u00dfner, E. t.-H. Chrysostom, A. M. D. Lee, D. M. Wardlaw, <strong>M.-L. Ho</strong>, S.-J. Lee, B.-M. Cheng, M. Z. Zgierski, I.-C. Chen,* J. P. Shaffer,* C. C. Hayden* and A. Stolow*",j:"Faraday Discussions",y:2004,corr:false,if5:""}
+];
+
+// How many to show initially
+let showCount = 20;
+const pubListEl = document.getElementById('pubList');
+const showMoreBtn = document.getElementById('showMoreBtn');
+
+function renderPubs(filter) {
+  let filtered = filter === 'corr' ? pubs.filter(p => p.corr) : pubs;
+  pubListEl.innerHTML = '';
+  const toShow = filtered.slice(0, showCount);
+  toShow.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'pub-item reveal visible';
+    div.dataset.year = p.y;
+    div.dataset.corr = p.corr;
+    let badges = `<span class="badge badge-year">${p.y}</span>`;
+    if (p.corr) badges += `<span class="badge badge-corr">Corresp.</span>`;
+    if (p.if5) badges += `<span class="badge badge-if">IF: ${p.if5}</span>`;
+    div.innerHTML = `<div class="pub-num">#${p.n}</div><div><div class="pub-title">${p.t}</div><div class="pub-authors">${p.a}</div><div class="pub-journal">${p.j}</div><div class="pub-badges">${badges}</div></div>`;
+    pubListEl.appendChild(div);
+  });
+  if (showCount >= filtered.length) {
+    showMoreBtn.style.display = 'none';
+  } else {
+    showMoreBtn.style.display = 'inline-block';
+    showMoreBtn.textContent = `SHOW ALL (${filtered.length - showCount} more)`;
+  }
+}
+
+let currentFilter = 'all';
+function filterPubs(f) {
+  currentFilter = f;
+  showCount = 20;
+  document.querySelectorAll('.pub-filter').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderPubs(f);
+}
+
+function showMorePubs() {
+  showCount = 999;
+  renderPubs(currentFilter);
+}
+
+renderPubs('all');
+
+// Chart
+const yearCounts = {};
+pubs.forEach(p => { yearCounts[p.y] = (yearCounts[p.y] || 0) + 1; });
+const years = Object.keys(yearCounts).sort();
+const maxCount = Math.max(...Object.values(yearCounts));
+const chartEl = document.getElementById('pubChart');
+years.forEach(y => {
+  const c = yearCounts[y];
+  const h = Math.max(8, (c / maxCount) * 110);
+  chartEl.innerHTML += `<div class="pub-bar-group"><div class="pub-bar" style="height:${h}px"><span class="pub-bar-count">${c}</span></div><span class="pub-bar-label">${y.slice(-2)}</span></div>`;
+});
+
+// === General JS ===
+function toggleCard(el) { el.classList.toggle('expanded'); }
+
+// Nav scroll
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
